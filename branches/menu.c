@@ -8,6 +8,7 @@ include define
 ***********************/
 #include"menu.h"
 #include"key.h"
+#include"stdio.h"
 
 /**********************
 Global define
@@ -20,29 +21,29 @@ static short int set_up_last_menu;
 static short int set_down_last_menu;
 static short int up_down_last_menu;
 
-unsigned char set_up_reset_time;			/*上电延时保护时间调节*/
-unsigned char set_up_two_ret_time;			/*两次压机启动间隔时间调节*/
-unsigned char set_up_protect_reset;			/*排气超温保护复位时间调节*/
-unsigned char set_up_temperature_time;		/*蒸发器传感器与环境传感器温差持续时间调节*/
-unsigned char set_up_max_defrost_time ; 	/*最大化霜工作时间调节*/
-unsigned char set_up_defrost_adj_time;		/*化霜周期调节*/
-unsigned char set_up_two_press_delay_tiem;	/*双压保护开关延时检测时间调节*/
+unsigned char set_up_reset_time;			/*脡脧碌莽脩脫脢卤卤拢禄陇脢卤录盲碌梅陆脷*/
+unsigned char set_up_two_ret_time;			/*脕陆麓脦脩鹿禄煤脝么露炉录盲赂么脢卤录盲碌梅陆脷*/
+unsigned char set_up_protect_reset;			/*脜脜脝酶鲁卢脦脗卤拢禄陇赂麓脦禄脢卤录盲碌梅陆脷*/
+unsigned char set_up_temperature_time;		/*脮么路垄脝梅麓芦赂脨脝梅脫毛禄路戮鲁麓芦赂脨脝梅脦脗虏卯鲁脰脨酶脢卤录盲碌梅陆脷*/
+unsigned char set_up_max_defrost_time ; 	/*脳卯麓贸禄炉脣陋鹿陇脳梅脢卤录盲碌梅陆脷*/
+unsigned char set_up_defrost_adj_time;		/*禄炉脣陋脰脺脝脷碌梅陆脷*/
+unsigned char set_up_two_press_delay_tiem;	/*脣芦脩鹿卤拢禄陇驴陋鹿脴脩脫脢卤录矛虏芒脢卤录盲碌梅陆脷*/
 
 
-unsigned char set_down_high_temperature;			/*最高上限温度调节，防止用户将温度调节至过高*/
-unsigned char set_down_temperature_backlash;		/*温度回差调节H55～d08即470C为开机点*/
-unsigned char set_down_stop_temperature;			/*排气过热保护停止温度调节*/
-unsigned char set_down_remove_temperature;			/*排气过热保护解除温度调节*/
-unsigned char set_down_spray_start_temperature;		/*喷液阀开启温度调节*/
-unsigned char set_down_spray_stop_temperature;		/*喷液阀关闭温度调节*/
-unsigned char set_down_evaporator_outside_temp;		/*蒸发器温度传感器与户外温度传感器温差值调节*/
-unsigned char set_down_defrost_temperature;			/*化霜结束温度调节*/
+unsigned char set_down_high_temperature;			/*脳卯赂脽脡脧脧脼脦脗露脠碌梅陆脷拢卢路脌脰鹿脫脙禄搂陆芦脦脗露脠碌梅陆脷脰脕鹿媒赂脽*/
+unsigned char set_down_temperature_backlash;		/*脦脗露脠禄脴虏卯碌梅陆脷H55隆芦d08录麓470C脦陋驴陋禄煤碌茫*/
+unsigned char set_down_stop_temperature;			/*脜脜脝酶鹿媒脠脠卤拢禄陇脥拢脰鹿脦脗露脠碌梅陆脷*/
+unsigned char set_down_remove_temperature;			/*脜脜脝酶鹿媒脠脠卤拢禄陇陆芒鲁媒脦脗露脠碌梅陆脷*/
+unsigned char set_down_spray_start_temperature;		/*脜莽脪潞路搂驴陋脝么脦脗露脠碌梅陆脷*/
+unsigned char set_down_spray_stop_temperature;		/*脜莽脪潞路搂鹿脴卤脮脦脗露脠碌梅陆脷*/
+unsigned char set_down_evaporator_outside_temp;		/*脮么路垄脝梅脦脗露脠麓芦赂脨脝梅脫毛禄搂脥芒脦脗露脠麓芦赂脨脝梅脦脗虏卯脰碌碌梅陆脷*/
+unsigned char set_down_defrost_temperature;			/*禄炉脣陋陆谩脢酶脦脗露脠碌梅陆脷*/
 
-unsigned char up_down_rest_method;				/*启动方式调节*/
-unsigned char up_down_assistance_temperature;	/*辅助电加热切入温度点调节(检测环境温度)*/
-unsigned char up_down_overload;					/*压机过载保护调节*/
-unsigned char up_down_antifreeze_heat_stop;		/*防冻模式下的加热停止点*/
-sbit up_down_elect_heat;						/*热泵出现故障时,电加热是否自动介入(0:不介入;1:介入)*/
+unsigned char up_down_rest_method;				/*脝么露炉路陆脢陆碌梅陆脷*/
+unsigned char up_down_assistance_temperature;	/*赂篓脰煤碌莽录脫脠脠脟脨脠毛脦脗露脠碌茫碌梅陆脷(录矛虏芒禄路戮鲁脦脗露脠)*/
+unsigned char up_down_overload;					/*脩鹿禄煤鹿媒脭脴卤拢禄陇碌梅陆脷*/
+unsigned char up_down_antifreeze_heat_stop;		/*路脌露鲁脛拢脢陆脧脗碌脛录脫脠脠脥拢脰鹿碌茫*/
+sbit up_down_elect_heat;						/*脠脠卤脙鲁枚脧脰鹿脢脮脧脢卤,碌莽录脫脠脠脢脟路帽脳脭露炉陆茅脠毛(0:虏禄陆茅脠毛;1:陆茅脠毛)*/
 
 
 const MenuTbl set_up_menu = 
@@ -72,10 +73,10 @@ const MenuTbl up_down_menu =
 	
 /*****************************************************************
 funcname:menu_funckey_method
-contents:Menu登录函数
-入口参数:
-返回值:
-备注:
+contents:Menu碌脟脗录潞炉脢媒
+脠毛驴脷虏脦脢媒:
+路碌禄脴脰碌:
+卤赂脳垄:
 *****************************************************************/
 extern	unsigned char	menu_funckey_method( MenuTbl far *unit_tbl ,unsigned char direction )
 {
@@ -157,9 +158,9 @@ extern	unsigned char	menu_funckey_method( MenuTbl far *unit_tbl ,unsigned char d
 
 /*************************************************
 Funcname: menu_exit_set
-contents: 解除当前Menu
-入口参数: void 
-返回值  : 
+contents: 陆芒鲁媒碌卤脟掳Menu
+脠毛驴脷虏脦脢媒: void 
+路碌禄脴脰碌  : 
 		  1:ok
 		  0:NG
 **************************************************/
@@ -172,39 +173,39 @@ extern unsigned char menu_exit_set( void )
 
 /*************************************************
 Funcname: set_up_menu_value_up_keychang() 
-contents: set up menu up 按键动作
-入口参数: newkey
-返回值  : void
+contents: set up menu up 掳麓录眉露炉脳梅
+脠毛驴脷虏脦脢媒: newkey
+路碌禄脴脰碌  : void
 **************************************************/
 void set_up_menu_value_up_keychang( void )
 {
 	switch( menust.all )
 	{
-		case  MENUST_SET_UP_RESET_DELAY_TIME:/*上电延时保护时间调节*/
+		case  MENUST_SET_UP_RESET_DELAY_TIME:/*脡脧碌莽脩脫脢卤卤拢禄陇脢卤录盲碌梅陆脷*/
 			set_up_reset_time += 1 ;
 			break;
 			
-		case MENUST_SET_UP_TWO_RET_TIME:/*两次压机启动间隔时间调节*/
+		case MENUST_SET_UP_TWO_RET_TIME:/*脕陆麓脦脩鹿禄煤脝么露炉录盲赂么脢卤录盲碌梅陆脷*/
 			set_up_two_ret_time += 1;
 			break;
 			
-		case MENUST_SET_UP_PROTECT_RESET:/*排气超温保护复位时间调节*/
+		case MENUST_SET_UP_PROTECT_RESET:/*脜脜脝酶鲁卢脦脗卤拢禄陇赂麓脦禄脢卤录盲碌梅陆脷*/
 			set_up_protect_reset += 1;
 			break;		
 			
-		case MENUST_SET_UP_TEMPERATURE_TIME:/*蒸发器传感器与环境传感器温差持续时间调节*/
+		case MENUST_SET_UP_TEMPERATURE_TIME:/*脮么路垄脝梅麓芦赂脨脝梅脫毛禄路戮鲁麓芦赂脨脝梅脦脗虏卯鲁脰脨酶脢卤录盲碌梅陆脷*/
 			set_up_temperature_time += 1;
 			break;
 			
-		case MENUST_SET_UP_MAX_DEFROST_TIME:/*最大化霜工作时间调节*/
+		case MENUST_SET_UP_MAX_DEFROST_TIME:/*脳卯麓贸禄炉脣陋鹿陇脳梅脢卤录盲碌梅陆脷*/
 			set_up_max_defrost_time += 1;
 			break;
 			
-		case MENUST_SET_UP_DEFROST_ADJ_TIME:/*化霜周期调节*/
+		case MENUST_SET_UP_DEFROST_ADJ_TIME:/*禄炉脣陋脰脺脝脷碌梅陆脷*/
 			set_up_defrost_adj_time += 1;
 			break;
 			
-		case MENUST_SET_UP_TWO_PRESS_DELAY_TIME:/*双压保护开关延时检测时间调节*/
+		case MENUST_SET_UP_TWO_PRESS_DELAY_TIME:/*脣芦脩鹿卤拢禄陇驴陋鹿脴脩脫脢卤录矛虏芒脢卤录盲碌梅陆脷*/
 			set_up_two_press_delay_tiem += 1;
 			break;	
 	}
@@ -212,39 +213,39 @@ void set_up_menu_value_up_keychang( void )
 
 /*************************************************
 Funcname: set_up_menu_value_down_keychang() 
-contents: set up menu up 按键动作
-入口参数: newkey
-返回值  : void
+contents: set up menu up 掳麓录眉露炉脳梅
+脠毛驴脷虏脦脢媒: newkey
+路碌禄脴脰碌  : void
 **************************************************/
 void set_up_menu_value_down_keychang( void )
 {
 	switch( menust.all )
 	{
-		case  MENUST_SET_UP_RESET_DELAY_TIME:/*上电延时保护时间调节*/
+		case  MENUST_SET_UP_RESET_DELAY_TIME:/*脡脧碌莽脩脫脢卤卤拢禄陇脢卤录盲碌梅陆脷*/
 			set_up_reset_time -= 1 ;
 			break;
 			
-		case MENUST_SET_UP_TWO_RET_TIME:/*两次压机启动间隔时间调节*/
+		case MENUST_SET_UP_TWO_RET_TIME:/*脕陆麓脦脩鹿禄煤脝么露炉录盲赂么脢卤录盲碌梅陆脷*/
 			set_up_two_ret_time -= 1;
 			break;
 			
-		case MENUST_SET_UP_PROTECT_RESET:/*排气超温保护复位时间调节*/
+		case MENUST_SET_UP_PROTECT_RESET:/*脜脜脝酶鲁卢脦脗卤拢禄陇赂麓脦禄脢卤录盲碌梅陆脷*/
 			set_up_protect_reset -= 1;
 			break;		
 			
-		case MENUST_SET_UP_TEMPERATURE_TIME:/*蒸发器传感器与环境传感器温差持续时间调节*/
+		case MENUST_SET_UP_TEMPERATURE_TIME:/*脮么路垄脝梅麓芦赂脨脝梅脫毛禄路戮鲁麓芦赂脨脝梅脦脗虏卯鲁脰脨酶脢卤录盲碌梅陆脷*/
 			set_up_temperature_time -= 1;
 			break;
 			
-		case MENUST_SET_UP_MAX_DEFROST_TIME:/*最大化霜工作时间调节*/
+		case MENUST_SET_UP_MAX_DEFROST_TIME:/*脳卯麓贸禄炉脣陋鹿陇脳梅脢卤录盲碌梅陆脷*/
 			set_up_max_defrost_time -= 1;
 			break;
 			
-		case MENUST_SET_UP_DEFROST_ADJ_TIME:/*化霜周期调节*/
+		case MENUST_SET_UP_DEFROST_ADJ_TIME:/*禄炉脣陋脰脺脝脷碌梅陆脷*/
 			set_up_defrost_adj_time -= 1;
 			break;
 			
-		case MENUST_SET_UP_TWO_PRESS_DELAY_TIME:/*双压保护开关延时检测时间调节*/
+		case MENUST_SET_UP_TWO_PRESS_DELAY_TIME:/*脣芦脩鹿卤拢禄陇驴陋鹿脴脩脫脢卤录矛虏芒脢卤录盲碌梅陆脷*/
 			set_up_two_press_delay_tiem -= 1;
 			break;	
 	}
@@ -252,9 +253,9 @@ void set_up_menu_value_down_keychang( void )
 
 /*************************************************
 Funcname: set_up_menu_value_enter_keychang() 
-contents: set up menu up 按键动作
-入口参数: newkey
-返回值  : void
+contents: set up menu up 掳麓录眉露炉脳梅
+脠毛驴脷虏脦脢媒: newkey
+路碌禄脴脰碌  : void
 **************************************************/
 void set_up_menu_value_enter_keychang( void )
 {
@@ -266,9 +267,9 @@ void set_up_menu_value_enter_keychang( void )
 
 /*************************************************
 Funcname: set_up_menu_keychang() 
-contents: set up menu中按键动作
-入口参数: newkey
-返回值  : void
+contents: set up menu脰脨掳麓录眉露炉脳梅
+脠毛驴脷虏脦脢媒: newkey
+路碌禄脴脰碌  : void
 **************************************************/
 extern void set_up_menu_keychang( newkey )
 {
@@ -300,43 +301,43 @@ extern void set_up_menu_keychang( newkey )
 
 /*************************************************
 Funcname: set_down_menu_value_up_keychang() 
-contents: set down menu up 按键动作
-入口参数: newkey
-返回值  : void
+contents: set down menu up 掳麓录眉露炉脳梅
+脠毛驴脷虏脦脢媒: newkey
+路碌禄脴脰碌  : void
 **************************************************/
 void set_down_menu_value_up_keychang( void )
 {
 	switch( menust.all )
 	{				
-		case MENUST_SET_DOWN_HIGH_TEMPERATURE:/*最高上限温度调节，防止用户将温度调节至过高*/
+		case MENUST_SET_DOWN_HIGH_TEMPERATURE:/*脳卯赂脽脡脧脧脼脦脗露脠碌梅陆脷拢卢路脌脰鹿脫脙禄搂陆芦脦脗露脠碌梅陆脷脰脕鹿媒赂脽*/
 			set_down_high_temperature += 1;
 			break;
 			
-		case MENUST_SET_DOWN_TEMPERATURE_BACKLASH:/*温度回差调节H55～d08即470C为开机点*/
+		case MENUST_SET_DOWN_TEMPERATURE_BACKLASH:/*脦脗露脠禄脴虏卯碌梅陆脷H55隆芦d08录麓470C脦陋驴陋禄煤碌茫*/
 			set_down_temperature_backlash += 1;
 			break;		
 			
-		case MENUST_SET_DOWN_STOP_TEMPERATURE:/*排气过热保护停止温度调节*/
+		case MENUST_SET_DOWN_STOP_TEMPERATURE:/*脜脜脝酶鹿媒脠脠卤拢禄陇脥拢脰鹿脦脗露脠碌梅陆脷*/
 			set_down_spray_stop_temperature += 1;
 			break;
 			
-		case MENUST_SET_DOWN_REMOVE_TEMPERATURE:/*排气过热保护解除温度调节*/
+		case MENUST_SET_DOWN_REMOVE_TEMPERATURE:/*脜脜脝酶鹿媒脠脠卤拢禄陇陆芒鲁媒脦脗露脠碌梅陆脷*/
 			set_down_remove_temperature += 1;
 			break;		
 			
-		case MENUST_SET_DOWN_SPRAY_START_TEMPERATURE:/*喷液阀开启温度调节*/
+		case MENUST_SET_DOWN_SPRAY_START_TEMPERATURE:/*脜莽脪潞路搂驴陋脝么脦脗露脠碌梅陆脷*/
 			set_down_spray_start_temperature += 1;
 			break;
 			
-		case MENUST_SET_DOWN_SPRAY_STOP_TEMPERATURE:/*喷液阀关闭温度调节*/
+		case MENUST_SET_DOWN_SPRAY_STOP_TEMPERATURE:/*脜莽脪潞路搂鹿脴卤脮脦脗露脠碌梅陆脷*/
 			set_down_spray_stop_temperature += 1;
 			break;	
 			
-		case MENUST_SET_DOWN_EVAPORATOR_OUTSIDE_TEMP:/*蒸发器温度传感器与户外温度传感器温差值调节*/
+		case MENUST_SET_DOWN_EVAPORATOR_OUTSIDE_TEMP:/*脮么路垄脝梅脦脗露脠麓芦赂脨脝梅脫毛禄搂脥芒脦脗露脠麓芦赂脨脝梅脦脗虏卯脰碌碌梅陆脷*/
 			set_down_evaporator_outside_temp += 1;
 			break;
 			
-		case MENUST_SET_DOWN_DEFROST_OVER_TEMPERATURE:/*化霜结束温度调节*/
+		case MENUST_SET_DOWN_DEFROST_OVER_TEMPERATURE:/*禄炉脣陋陆谩脢酶脦脗露脠碌梅陆脷*/
 			set_down_defrost_temperature += 1;
 			break;
 			
@@ -347,43 +348,43 @@ void set_down_menu_value_up_keychang( void )
 
 /*************************************************
 Funcname: set_down_menu_value_down_keychang() 
-contents: set down menu up 按键动作
-入口参数: newkey
-返回值  : void
+contents: set down menu up 掳麓录眉露炉脳梅
+脠毛驴脷虏脦脢媒: newkey
+路碌禄脴脰碌  : void
 **************************************************/
 void set_down_menu_value_down_keychang( void )
 {
 	switch( menust.all )
 	{			
-		case MENUST_SET_DOWN_HIGH_TEMPERATURE:/*最高上限温度调节，防止用户将温度调节至过高*/
+		case MENUST_SET_DOWN_HIGH_TEMPERATURE:/*脳卯赂脽脡脧脧脼脦脗露脠碌梅陆脷拢卢路脌脰鹿脫脙禄搂陆芦脦脗露脠碌梅陆脷脰脕鹿媒赂脽*/
 			set_down_high_temperature -= 1;
 			break;
 			
-		case MENUST_SET_DOWN_TEMPERATURE_BACKLASH:/*温度回差调节H55～d08即470C为开机点*/
+		case MENUST_SET_DOWN_TEMPERATURE_BACKLASH:/*脦脗露脠禄脴虏卯碌梅陆脷H55隆芦d08录麓470C脦陋驴陋禄煤碌茫*/
 			set_down_temperature_backlash -= 1;
 			break;		
 			
-		case MENUST_SET_DOWN_STOP_TEMPERATURE:/*排气过热保护停止温度调节*/
+		case MENUST_SET_DOWN_STOP_TEMPERATURE:/*脜脜脝酶鹿媒脠脠卤拢禄陇脥拢脰鹿脦脗露脠碌梅陆脷*/
 			set_down_spray_stop_temperature -= 1;
 			break;
 			
-		case MENUST_SET_DOWN_REMOVE_TEMPERATURE:/*排气过热保护解除温度调节*/
+		case MENUST_SET_DOWN_REMOVE_TEMPERATURE:/*脜脜脝酶鹿媒脠脠卤拢禄陇陆芒鲁媒脦脗露脠碌梅陆脷*/
 			set_down_remove_temperature -= 1;
 			break;		
 			
-		case MENUST_SET_DOWN_SPRAY_START_TEMPERATURE:/*喷液阀开启温度调节*/
+		case MENUST_SET_DOWN_SPRAY_START_TEMPERATURE:/*脜莽脪潞路搂驴陋脝么脦脗露脠碌梅陆脷*/
 			set_down_spray_start_temperature -= 1;
 			break;
 			
-		case MENUST_SET_DOWN_SPRAY_STOP_TEMPERATURE:/*喷液阀关闭温度调节*/
+		case MENUST_SET_DOWN_SPRAY_STOP_TEMPERATURE:/*脜莽脪潞路搂鹿脴卤脮脦脗露脠碌梅陆脷*/
 			set_down_spray_stop_temperature -= 1;
 			break;	
 			
-		case MENUST_SET_DOWN_EVAPORATOR_OUTSIDE_TEMP:/*蒸发器温度传感器与户外温度传感器温差值调节*/
+		case MENUST_SET_DOWN_EVAPORATOR_OUTSIDE_TEMP:/*脮么路垄脝梅脦脗露脠麓芦赂脨脝梅脫毛禄搂脥芒脦脗露脠麓芦赂脨脝梅脦脗虏卯脰碌碌梅陆脷*/
 			set_down_evaporator_outside_temp -= 1;
 			break;
 			
-		case MENUST_SET_DOWN_DEFROST_OVER_TEMPERATURE:/*化霜结束温度调节*/
+		case MENUST_SET_DOWN_DEFROST_OVER_TEMPERATURE:/*禄炉脣陋陆谩脢酶脦脗露脠碌梅陆脷*/
 			set_down_defrost_temperature -= 1;
 			break;
 			
@@ -394,9 +395,9 @@ void set_down_menu_value_down_keychang( void )
 
 /*************************************************
 Funcname: set_down_menu_value_enter_keychang() 
-contents: set down menu up 按键动作
-入口参数: newkey
-返回值  : void
+contents: set down menu up 掳麓录眉露炉脳梅
+脠毛驴脷虏脦脢媒: newkey
+路碌禄脴脰碌  : void
 **************************************************/
 void set_down_menu_value_enter_keychang( void )
 {
@@ -408,9 +409,9 @@ void set_down_menu_value_enter_keychang( void )
 
 /*************************************************
 Funcname: set_down_menu_keychang() 
-contents: set down menu中按键动作
-入口参数: newkey
-返回值  : void
+contents: set down menu脰脨掳麓录眉露炉脳梅
+脠毛驴脷虏脦脢媒: newkey
+路碌禄脴脰碌  : void
 **************************************************/
 extern void set_down_menu_keychang( newkey )
 {
@@ -442,31 +443,31 @@ extern void set_down_menu_keychang( newkey )
 
 /*************************************************
 Funcname: up_down_menu_value_up_keychang() 
-contents: up down menu up 按键动作
-入口参数: newkey
-返回值  : void
+contents: up down menu up 掳麓录眉露炉脳梅
+脠毛驴脷虏脦脢媒: newkey
+路碌禄脴脰碌  : void
 **************************************************/
 void up_down_menu_value_up_keychang( void )
 {
 	switch( menust.all )
 	{	
-		case MENUST_UP_DOWN_REST_METHOD:/*启动方式调节*/		
+		case MENUST_UP_DOWN_REST_METHOD:/*脝么露炉路陆脢陆碌梅陆脷*/		
 			up_down_rest_method += 1;
 			break;
 			
-		case MENUST_UP_DOWN_ASSISTANCE_TEMPERATURE:/*辅助电加热切入温度点调节(检测环境温度)*/
+		case MENUST_UP_DOWN_ASSISTANCE_TEMPERATURE:/*赂篓脰煤碌莽录脫脠脠脟脨脠毛脦脗露脠碌茫碌梅陆脷(录矛虏芒禄路戮鲁脦脗露脠)*/
 			up_down_assistance_temperature += 1;
 			break;	
 			
-		case MENUST_UP_DOWN_OVERLOAD:/*压机过载保护调节*/
+		case MENUST_UP_DOWN_OVERLOAD:/*脩鹿禄煤鹿媒脭脴卤拢禄陇碌梅陆脷*/
 			up_down_overload += 1;
 			break;
 			
-		case MENUST_UP_DOWN_ANTIFREEZE_HEAT_STOP:/*防冻模式下的加热停止点*/
+		case MENUST_UP_DOWN_ANTIFREEZE_HEAT_STOP:/*路脌露鲁脛拢脢陆脧脗碌脛录脫脠脠脥拢脰鹿碌茫*/
 			up_down_antifreeze_heat_stop += 1;
 			break;		
 			
-		case MENUST_UP_DOWN_ELECT_HEAT:/*热泵出现故障时,电加热是否自动介入(0:不介入;1:介入)*/
+		case MENUST_UP_DOWN_ELECT_HEAT:/*脠脠卤脙鲁枚脧脰鹿脢脮脧脢卤,碌莽录脫脠脠脢脟路帽脳脭露炉陆茅脠毛(0:虏禄陆茅脠毛;1:陆茅脠毛)*/
 			up_down_elect_heat += 1;
 			break;
 			
@@ -477,31 +478,31 @@ void up_down_menu_value_up_keychang( void )
 
 /*************************************************
 Funcname: up_down_menu_value_down_keychang() 
-contents: up down menu down 按键动作
-入口参数: newkey
-返回值  : void
+contents: up down menu down 掳麓录眉露炉脳梅
+脠毛驴脷虏脦脢媒: newkey
+路碌禄脴脰碌  : void
 **************************************************/
 void up_down_menu_value_down_keychang( void )
 {
 	switch( menust.all )
 	{	
-		case MENUST_UP_DOWN_REST_METHOD:/*启动方式调节*/		
+		case MENUST_UP_DOWN_REST_METHOD:/*脝么露炉路陆脢陆碌梅陆脷*/		
 			up_down_rest_method -= 1;
 			break;
 			
-		case MENUST_UP_DOWN_ASSISTANCE_TEMPERATURE:/*辅助电加热切入温度点调节(检测环境温度)*/
+		case MENUST_UP_DOWN_ASSISTANCE_TEMPERATURE:/*赂篓脰煤碌莽录脫脠脠脟脨脠毛脦脗露脠碌茫碌梅陆脷(录矛虏芒禄路戮鲁脦脗露脠)*/
 			up_down_assistance_temperature -= 1;
 			break;	
 			
-		case MENUST_UP_DOWN_OVERLOAD:/*压机过载保护调节*/
+		case MENUST_UP_DOWN_OVERLOAD:/*脩鹿禄煤鹿媒脭脴卤拢禄陇碌梅陆脷*/
 			up_down_overload -= 1;
 			break;
 			
-		case MENUST_UP_DOWN_ANTIFREEZE_HEAT_STOP:/*防冻模式下的加热停止点*/
+		case MENUST_UP_DOWN_ANTIFREEZE_HEAT_STOP:/*路脌露鲁脛拢脢陆脧脗碌脛录脫脠脠脥拢脰鹿碌茫*/
 			up_down_antifreeze_heat_stop -= 1;
 			break;		
 			
-		case MENUST_UP_DOWN_ELECT_HEAT:/*热泵出现故障时,电加热是否自动介入(0:不介入;1:介入)*/
+		case MENUST_UP_DOWN_ELECT_HEAT:/*脠脠卤脙鲁枚脧脰鹿脢脮脧脢卤,碌莽录脫脠脠脢脟路帽脳脭露炉陆茅脠毛(0:虏禄陆茅脠毛;1:陆茅脠毛)*/
 			up_down_elect_heat -= 1;
 			break;
 			
@@ -512,9 +513,9 @@ void up_down_menu_value_down_keychang( void )
 
 /*************************************************
 Funcname: up_down_menu_value_enter_keychang() 
-contents: up down menu enter 按键动作
-入口参数: newkey
-返回值  : void
+contents: up down menu enter 掳麓录眉露炉脳梅
+脠毛驴脷虏脦脢媒: newkey
+路碌禄脴脰碌  : void
 **************************************************/
 void up_down_menu_value_enter_keychang( void )
 {
@@ -526,9 +527,9 @@ void up_down_menu_value_enter_keychang( void )
 
 /*************************************************
 Funcname: up_down_menu_keychang() 
-contents: up down menu中按键动作
-入口参数: newkey
-返回值  : void
+contents: up down menu脰脨掳麓录眉露炉脳梅
+脠毛驴脷虏脦脢媒: newkey
+路碌禄脴脰碌  : void
 **************************************************/
 extern void up_down_menu_keychang( newkey )
 {
@@ -561,9 +562,9 @@ extern void up_down_menu_keychang( newkey )
 
 /*************************************************
 Funcname: set_up_menu_enable_chk() 
-contents: set up menu 是否有效Chk
-入口参数: menu
-返回值  : 
+contents: set up menu 脢脟路帽脫脨脨搂Chk
+脠毛驴脷虏脦脢媒: menu
+路碌禄脴脰碌  : 
 		  1:true
 		  0:false
 **************************************************/
@@ -608,9 +609,9 @@ static unsigned char set_up_menu_enable_chk( unsigned short menu )
 
 /*************************************************
 Funcname: set_down_menu_enable_chk() 
-contents: set down menu 是否有效Chk
-入口参数: menu
-返回值  : 
+contents: set down menu 脢脟路帽脫脨脨搂Chk
+脠毛驴脷虏脦脢媒: menu
+路碌禄脴脰碌  : 
 		  1:true
 		  0:false
 **************************************************/
@@ -659,9 +660,9 @@ static unsigned char set_down_menu_enable_chk( unsigned short menu )
 
 /*************************************************
 Funcname: up_down_menu_enable_chk() 
-contents: up down menu 是否有效Chk
-入口参数: menu
-返回值  : 
+contents: up down menu 脢脟路帽脫脨脨搂Chk
+脠毛驴脷虏脦脢媒: menu
+路碌禄脴脰碌  : 
 		  1:true
 		  0:false
 **************************************************/
@@ -709,13 +710,13 @@ static unsigned char up_down_menu_enable_chk( unsigned short menu )
 }
 /*************************************************
 Funcname: menu_set_value
-contents: Menu参数设置函数
-入口参数: 
-		  menu:需要设定的Menu
-		  set_value:设定值
-		  set:0为初始化Menu参数模式;1为设定Menu参数模式
+contents: Menu虏脦脢媒脡猫脰脙潞炉脢媒
+脠毛驴脷虏脦脢媒: 
+		  menu:脨猫脪陋脡猫露篓碌脛Menu
+		  set_value:脡猫露篓脰碌
+		  set:0脦陋鲁玫脢录禄炉Menu虏脦脢媒脛拢脢陆;1脦陋脡猫露篓Menu虏脦脢媒脛拢脢陆
 
-返回值  : 
+路碌禄脴脰碌  : 
 		  1:true
 		  0:false
 **************************************************/
@@ -723,29 +724,29 @@ void menu_set_value( unsigned int menu,unsigned char set_value, unsigned char se
 {
 	if( 0 == set )
 	{
-		set_up_reset_time = 10;				/*上电延时保护时间调节*/
-		set_up_two_ret_time = 10;			/*两次压机启动间隔时间调节*/
-		set_up_protect_reset = 10;			/*排气超温保护复位时间调节*/
-		set_up_temperature_time = 5;		/*蒸发器传感器与环境传感器温差持续时间调节*/
-		set_up_max_defrost_time = 10; 		/*最大化霜工作时间调节*/
-		set_up_defrost_adj_time = 45;		/*化霜周期调节*/
-		set_up_two_press_delay_tiem = 3;	/*双压保护开关延时检测时间调节*/
+		set_up_reset_time = 10;				/*脡脧碌莽脩脫脢卤卤拢禄陇脢卤录盲碌梅陆脷*/
+		set_up_two_ret_time = 10;			/*脕陆麓脦脩鹿禄煤脝么露炉录盲赂么脢卤录盲碌梅陆脷*/
+		set_up_protect_reset = 10;			/*脜脜脝酶鲁卢脦脗卤拢禄陇赂麓脦禄脢卤录盲碌梅陆脷*/
+		set_up_temperature_time = 5;		/*脮么路垄脝梅麓芦赂脨脝梅脫毛禄路戮鲁麓芦赂脨脝梅脦脗虏卯鲁脰脨酶脢卤录盲碌梅陆脷*/
+		set_up_max_defrost_time = 10; 		/*脳卯麓贸禄炉脣陋鹿陇脳梅脢卤录盲碌梅陆脷*/
+		set_up_defrost_adj_time = 45;		/*禄炉脣陋脰脺脝脷碌梅陆脷*/
+		set_up_two_press_delay_tiem = 3;	/*脣芦脩鹿卤拢禄陇驴陋鹿脴脩脫脢卤录矛虏芒脢卤录盲碌梅陆脷*/
 
 
-		set_down_high_temperature = 55;			/*最高上限温度调节，防止用户将温度调节至过高*/
-		set_down_temperature_backlash = 8;		/*温度回差调节H55～d08即470C为开机点*/
-		set_down_stop_temperature = 95;			/*排气过热保护停止温度调节*/
-		set_down_remove_temperature = 70;			/*排气过热保护解除温度调节*/
-		set_down_spray_start_temperature = 85;		/*喷液阀开启温度调节*/
-		set_down_spray_stop_temperature = 75;		/*喷液阀关闭温度调节*/
-		set_down_evaporator_outside_temp = 10;		/*蒸发器温度传感器与户外温度传感器温差值调节*/
-		set_down_defrost_temperature = 8;			/*化霜结束温度调节*/
+		set_down_high_temperature = 55;			/*脳卯赂脽脡脧脧脼脦脗露脠碌梅陆脷拢卢路脌脰鹿脫脙禄搂陆芦脦脗露脠碌梅陆脷脰脕鹿媒赂脽*/
+		set_down_temperature_backlash = 8;		/*脦脗露脠禄脴虏卯碌梅陆脷H55隆芦d08录麓470C脦陋驴陋禄煤碌茫*/
+		set_down_stop_temperature = 95;			/*脜脜脝酶鹿媒脠脠卤拢禄陇脥拢脰鹿脦脗露脠碌梅陆脷*/
+		set_down_remove_temperature = 70;			/*脜脜脝酶鹿媒脠脠卤拢禄陇陆芒鲁媒脦脗露脠碌梅陆脷*/
+		set_down_spray_start_temperature = 85;		/*脜莽脪潞路搂驴陋脝么脦脗露脠碌梅陆脷*/
+		set_down_spray_stop_temperature = 75;		/*脜莽脪潞路搂鹿脴卤脮脦脗露脠碌梅陆脷*/
+		set_down_evaporator_outside_temp = 10;		/*脮么路垄脝梅脦脗露脠麓芦赂脨脝梅脫毛禄搂脥芒脦脗露脠麓芦赂脨脝梅脦脗虏卯脰碌碌梅陆脷*/
+		set_down_defrost_temperature = 8;			/*禄炉脣陋陆谩脢酶脦脗露脠碌梅陆脷*/
 
-		up_down_rest_method = 2;				/*启动方式调节*/
-		up_down_assistance_temperature = 5;	/*辅助电加热切入温度点调节(检测环境温度)*/
-		up_down_overload = 25;					/*压机过载保护调节*/
-		up_down_antifreeze_heat_stop = 9;		/*防冻模式下的加热停止点*/
-		up_down_elect_heat = 0;				/*热泵出现故障时,电加热是否自动介入(0:不介入;1:介入)*/
+		up_down_rest_method = 2;				/*脝么露炉路陆脢陆碌梅陆脷*/
+		up_down_assistance_temperature = 5;	/*赂篓脰煤碌莽录脫脠脠脟脨脠毛脦脗露脠碌茫碌梅陆脷(录矛虏芒禄路戮鲁脦脗露脠)*/
+		up_down_overload = 25;					/*脩鹿禄煤鹿媒脭脴卤拢禄陇碌梅陆脷*/
+		up_down_antifreeze_heat_stop = 9;		/*路脌露鲁脛拢脢陆脧脗碌脛录脫脠脠脥拢脰鹿碌茫*/
+		up_down_elect_heat = 0;				/*脠脠卤脙鲁枚脧脰鹿脢脮脧脢卤,碌莽录脫脠脠脢脟路帽脳脭露炉陆茅脠毛(0:虏禄陆茅脠毛;1:陆茅脠毛)*/
 	}
 	else
 	{
@@ -754,87 +755,87 @@ void menu_set_value( unsigned int menu,unsigned char set_value, unsigned char se
 	/************************************************************
 				*  Set up Menu  *
 	************************************************************/
-			case MENUST_SET_UP_RESET_DELAY_TIME:/*上电延时保护时间调节*/
+			case MENUST_SET_UP_RESET_DELAY_TIME:/*脡脧碌莽脩脫脢卤卤拢禄陇脢卤录盲碌梅陆脷*/
 				set_up_reset_time = set_value;
 				break;
 				
-			case MENUST_SET_UP_TWO_RET_TIME:/*两次压机启动间隔时间调节*/
+			case MENUST_SET_UP_TWO_RET_TIME:/*脕陆麓脦脩鹿禄煤脝么露炉录盲赂么脢卤录盲碌梅陆脷*/
 				set_up_two_ret_time = set_value;
 				break;
 				
-			case MENUST_SET_UP_PROTECT_RESET:/*排气超温保护复位时间调节*/
+			case MENUST_SET_UP_PROTECT_RESET:/*脜脜脝酶鲁卢脦脗卤拢禄陇赂麓脦禄脢卤录盲碌梅陆脷*/
 				set_up_protect_reset = set_value;
 				break;		
 				
-			case MENUST_SET_UP_TEMPERATURE_TIME:/*蒸发器传感器与环境传感器温差持续时间调节*/
+			case MENUST_SET_UP_TEMPERATURE_TIME:/*脮么路垄脝梅麓芦赂脨脝梅脫毛禄路戮鲁麓芦赂脨脝梅脦脗虏卯鲁脰脨酶脢卤录盲碌梅陆脷*/
 				set_up_temperature_time = set_value;
 				break;
 				
-			case MENUST_SET_UP_MAX_DEFROST_TIME:/*最大化霜工作时间调节*/
+			case MENUST_SET_UP_MAX_DEFROST_TIME:/*脳卯麓贸禄炉脣陋鹿陇脳梅脢卤录盲碌梅陆脷*/
 				set_up_max_defrost_time = set_value;
 				break;
 				
-			case MENUST_SET_UP_DEFROST_ADJ_TIME:/*化霜周期调节*/
+			case MENUST_SET_UP_DEFROST_ADJ_TIME:/*禄炉脣陋脰脺脝脷碌梅陆脷*/
 				set_up_defrost_adj_time = set_value;
 				break;
 				
-			case MENUST_SET_UP_TWO_PRESS_DELAY_TIME:/*双压保护开关延时检测时间调节*/
+			case MENUST_SET_UP_TWO_PRESS_DELAY_TIME:/*脣芦脩鹿卤拢禄陇驴陋鹿脴脩脫脢卤录矛虏芒脢卤录盲碌梅陆脷*/
 				set_up_two_press_delay_tiem = set_value;
 				break;	
 	 /************************************************************
 				*  Set down Menu  *
 	 ************************************************************/				
-			case MENUST_SET_DOWN_HIGH_TEMPERATURE:/*最高上限温度调节，防止用户将温度调节至过高*/
+			case MENUST_SET_DOWN_HIGH_TEMPERATURE:/*脳卯赂脽脡脧脧脼脦脗露脠碌梅陆脷拢卢路脌脰鹿脫脙禄搂陆芦脦脗露脠碌梅陆脷脰脕鹿媒赂脽*/
 				set_down_high_temperature = set_value;
 				break;
 				
-			case MENUST_SET_DOWN_TEMPERATURE_BACKLASH:/*温度回差调节H55～d08即470C为开机点*/
+			case MENUST_SET_DOWN_TEMPERATURE_BACKLASH:/*脦脗露脠禄脴虏卯碌梅陆脷H55隆芦d08录麓470C脦陋驴陋禄煤碌茫*/
 				set_down_temperature_backlash = set_value;
 				break;		
 				
-			case MENUST_SET_DOWN_STOP_TEMPERATURE:/*排气过热保护停止温度调节*/
+			case MENUST_SET_DOWN_STOP_TEMPERATURE:/*脜脜脝酶鹿媒脠脠卤拢禄陇脥拢脰鹿脦脗露脠碌梅陆脷*/
 				set_down_spray_stop_temperature= set_value;
 				break;
 				
-			case MENUST_SET_DOWN_REMOVE_TEMPERATURE:/*排气过热保护解除温度调节*/
+			case MENUST_SET_DOWN_REMOVE_TEMPERATURE:/*脜脜脝酶鹿媒脠脠卤拢禄陇陆芒鲁媒脦脗露脠碌梅陆脷*/
 				set_down_remove_temperature = set_value;
 				break;		
 				
-			case MENUST_SET_DOWN_SPRAY_START_TEMPERATURE:/*喷液阀开启温度调节*/
+			case MENUST_SET_DOWN_SPRAY_START_TEMPERATURE:/*脜莽脪潞路搂驴陋脝么脦脗露脠碌梅陆脷*/
 				set_down_spray_start_temperature = set_value;
 				break;
 				
-			case MENUST_SET_DOWN_SPRAY_STOP_TEMPERATURE:/*喷液阀关闭温度调节*/
+			case MENUST_SET_DOWN_SPRAY_STOP_TEMPERATURE:/*脜莽脪潞路搂鹿脴卤脮脦脗露脠碌梅陆脷*/
 				set_down_spray_stop_temperature = set_value;
 				break;	
 				
-			case MENUST_SET_DOWN_EVAPORATOR_OUTSIDE_TEMP:/*蒸发器温度传感器与户外温度传感器温差值调节*/
+			case MENUST_SET_DOWN_EVAPORATOR_OUTSIDE_TEMP:/*脮么路垄脝梅脦脗露脠麓芦赂脨脝梅脫毛禄搂脥芒脦脗露脠麓芦赂脨脝梅脦脗虏卯脰碌碌梅陆脷*/
 				set_down_evaporator_outside_temp = set_value;
 				break;
 				
-			case MENUST_SET_DOWN_DEFROST_OVER_TEMPERATURE:/*化霜结束温度调节*/
+			case MENUST_SET_DOWN_DEFROST_OVER_TEMPERATURE:/*禄炉脣陋陆谩脢酶脦脗露脠碌梅陆脷*/
 				set_down_defrost_temperature = set_value;
 				break;	
 	 /************************************************************
 				*  up down Menu  *
 	  ************************************************************/			
-			case MENUST_UP_DOWN_REST_METHOD:/*启动方式调节*/		
+			case MENUST_UP_DOWN_REST_METHOD:/*脝么露炉路陆脢陆碌梅陆脷*/		
 				up_down_rest_method = set_value;
 				break;
 				
-			case MENUST_UP_DOWN_ASSISTANCE_TEMPERATURE:/*辅助电加热切入温度点调节(检测环境温度)*/
+			case MENUST_UP_DOWN_ASSISTANCE_TEMPERATURE:/*赂篓脰煤碌莽录脫脠脠脟脨脠毛脦脗露脠碌茫碌梅陆脷(录矛虏芒禄路戮鲁脦脗露脠)*/
 				up_down_assistance_temperature = set_value;
 				break;	
 				
-			case MENUST_UP_DOWN_OVERLOAD:/*压机过载保护调节*/
+			case MENUST_UP_DOWN_OVERLOAD:/*脩鹿禄煤鹿媒脭脴卤拢禄陇碌梅陆脷*/
 				up_down_overload = set_value;
 				break;
 				
-			case MENUST_UP_DOWN_ANTIFREEZE_HEAT_STOP:/*防冻模式下的加热停止点*/
+			case MENUST_UP_DOWN_ANTIFREEZE_HEAT_STOP:/*路脌露鲁脛拢脢陆脧脗碌脛录脫脠脠脥拢脰鹿碌茫*/
 				up_down_antifreeze_heat_stop = set_value;
 				break;		
 				
-			case MENUST_UP_DOWN_ELECT_HEAT:/*热泵出现故障时,电加热是否自动介入(0:不介入;1:介入)*/
+			case MENUST_UP_DOWN_ELECT_HEAT:/*脠脠卤脙鲁枚脧脰鹿脢脮脧脢卤,碌莽录脫脠脠脢脟路帽脳脭露炉陆茅脠毛(0:虏禄陆茅脠毛;1:陆茅脠毛)*/
 				up_down_elect_heat = set_value;
 				break;
 				
