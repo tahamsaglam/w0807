@@ -39,7 +39,8 @@ private RAM声明
 ==============================================================*/
 private _UBYTE menu_layer;		/*Menu 阶层记忆变量*/
 private _UINT menu_exit_timer;	/*Menu 自动退出时间计数*/
-private _UINT menu_dirction;		/*Menu 旋转方向*/
+private _UINT menu_dirction;	/*Menu 旋转方向*/
+
 enum{
 	MENU_TYPE_MEMORY   =0x00 
 ,	MENU_TYPE_DISMEMORY		
@@ -109,28 +110,34 @@ public void menu_set_layer( _UBYTE requst_layer )
 	switch( requst_layer )
 	{
 		case MENU_RQ_LAYER_INC:
+		{
 			if(( MENU_LAYER_UNKNOW != menu_layer )		/*Menu登录后，在Menu中才可增加阶层数*/
 				&&(MENU_LAYER_THREE > menu_layer ))		/*Menu阶层数，小于最大层才可进层*/
 			{
 				menu_layer ++;
 			}
-			break;
+		}
+		break;
 			
 		case MENU_RQ_LAYER_DEC:
+		{
 			if(( MENU_LAYER_UNKNOW != menu_layer )
 				&&( MENU_LAYER_FIRST < menu_layer ))
 			{
 				menu_layer --;
 			}
-			break;
+		}
+		break;
 
 		default:
+		{
 			if(( MENU_LAYER_UNKNOW != menu_layer )
 				&&( MENU_LAYER_THREE >= menu_layer ))
 			{
 				menu_layer = requst_layer;
 			}
-			break;
+		}
+		break;
 	}
 }
 
@@ -144,7 +151,7 @@ Remart		:
 ********************************************************/
 public void menu_exit_timer_reload( void )
 {
-	menu_exit_timer = MENU_EXIT_TIME_30S ;
+	menu_exit_timer = MENU_EXIT_TIME_30S;
 }
 
 
@@ -354,7 +361,6 @@ Remart		:
 ***************************************/
 public void menu_128mtimer_task( void )
 {
-
 	if( 1 == tcount_int( &menu_exit_timer ))
 	{
 		menu_exit_requst( );		/*30S定时到，自动退Menu*/

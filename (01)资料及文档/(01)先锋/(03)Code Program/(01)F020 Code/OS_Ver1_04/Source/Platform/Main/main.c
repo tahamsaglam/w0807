@@ -37,9 +37,9 @@ typedef struct
 private S_TASK_COUNT task_count;
 private _UBYTE task_table[(TASK_16MS_FUNC/8)+1];
 
-#define main_set_task_bit(c)  (task_table[c/8] |= (0x01<<(c%8)))
-#define main_clear_task_bit(c)  (task_table[c/8] &= ~(0x01<<(c%8)))
-#define main_check_task_bit(c)  ((task_table[c/8]&(0x01<<(c%8)))!=0?TRUE:FALSE)
+#define main_set_task_bit(c)  (task_table[(c)/8] |= (0x01<<((c)%8)))
+#define main_clear_task_bit(c)  (task_table[(c)/8] &= ~(0x01<<((c)%8)))
+#define main_check_task_bit(c)  ((task_table[(c)/8]&(0x01<<((c)%8)))!=0?TRUE:FALSE)
 
 
 /*===============================================================

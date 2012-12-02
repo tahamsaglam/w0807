@@ -182,7 +182,7 @@ NOTES		: 8ms执行一次
 public void matrixkey_8ms_task( void )
 {
 #ifdef SYSTEM_MATRIX_KEY
-#ifdef KYEP0_DEBUG
+#ifndef KYEP0_DEBUG
 	unsigned char matrix_key_buf  = KEY_PORT_STATUS;	/*读按键Port的寄存器的值*/
 #else	
 	unsigned char matrix_key_buf =0x00;

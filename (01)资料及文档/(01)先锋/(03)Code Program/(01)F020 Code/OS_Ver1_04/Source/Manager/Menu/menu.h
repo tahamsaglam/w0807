@@ -29,7 +29,7 @@ Menu 结构体声明
 *****************************************************/
 typedef struct{
 	_UINT *last_menu;
-	_UBYTE ( * enable_chk )( _UINT );
+	_UBYTE (* enable_chk )( _UINT );
 	_UINT menu_start;
 	_UINT menu_end;
 }MenuTbl;
