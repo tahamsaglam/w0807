@@ -1,0 +1,33 @@
+一、source insight打开工程挂掉问题一般是因为工程路径存在中文，把路径修改成没有中文就行了。
+
+
+
+
+
+二、但是那些以前一打开就使source insigh挂掉的工程还是存在的，
+
+1、有个比较好的方法是彻底删除调source insigh重新安装。
+
+
+
+
+当你重新安装后会发现以前的工程还在。。。因为你没有彻底删除掉
+
+在win7只要删除掉下面文件就行了
+
+C:\Users\Administrator\Documents\Source Insight
+
+在winXP只要删除掉下面文件
+
+d:\documents and settings\Source Insight\
+
+
+
+
+
+2、还有个彻底删除挂掉工程的方法，但是比较麻烦
+
+用十六进制编辑器打开"d:\documents and settings\Source Insight\Projects\PROJECTS.DB3" 文件 ，找到你要删除的项目路径及名称字符串，用0替换相关位置的数据。保存后重新打开source insight即可。
+
+
+URL:http://blog.csdn.net/skylinethj/article/details/8362866
