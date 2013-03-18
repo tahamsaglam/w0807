@@ -1,0 +1,37 @@
+RingBuffer为日本人的代码，只提供了库文件。使用方法如下：
+
+private	unsigned char		s_EntryNo;				
+private	unsigned char		s_aRxdata_temp[12];	
+
+
+/*************************************************
+Eample 模块
+**************************************************/
+extern void Example_init( void )
+{
+	s_EntryNo = RB_reqEntry(&s_aRxdata_temp[0], sizeof(s_aRxdata_temp));
+}
+
+static void Example_standby(void)
+{
+	RB_initRingBuffer(s_EntryNo);
+}
+
+
+extern void Example_isr( void )
+{
+	unsigned char	rxdata_temp;
+	rxdata_temp = UART_REC_BUFF;/*UART接收寄存器*/
+	RB_putRingBuffer(s_EntryNo, rxdata_temp);
+}
+
+
+extern void Example_collect_data( void )
+{
+	unsigned char data_temp;
+	while ( RB_getBufferStatus(s_EntryNo) != RB_STS_EMPTY ) 
+	{
+		data_temp = RB_getRingBuffer(s_EntryNo);
+		运算数组 = data_temp;
+	}
+}
