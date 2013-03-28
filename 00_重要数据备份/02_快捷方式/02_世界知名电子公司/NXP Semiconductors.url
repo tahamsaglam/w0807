@@ -1,0 +1,10 @@
+[DEFAULT]
+BASEURL=http://www.cn.nxp.com/
+[DOC#1379]
+BASEURL=http://www.cn.nxp.com/
+ORIGURL=javascript:false;
+[InternetShortcut]
+URL=http://www.cn.nxp.com/#/homepage
+Modified=400BEFE0A65CCB01E8
+IconFile=http://www.cn.nxp.com/favicon.ico
+IconIndex=1
